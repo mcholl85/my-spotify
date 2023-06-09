@@ -1,4 +1,5 @@
 import { useLikedTracks } from './features/likedTracks/api/getLikedTracks'
+import { getCoverUrl, COVER_SIZE } from './utils/getCoverUrl'
 
 function App() {
   const { data, isLoading, isError } = useLikedTracks({})
@@ -12,8 +13,11 @@ function App() {
       <div>Les {nbOfTracks} musiques Spotify ont été chargées</div>
       <br />
       <div>
-        {data?.items.map((item) => (
-          <div key={item.track.id}>{item.track.name}</div>
+        {data?.items.map(({ track }) => (
+          <div key={track.id}>
+            <div>{track.name} </div>
+            <img src={getCoverUrl(track.album, COVER_SIZE.small)} alt={`${track.name} cover`} />
+          </div>
         ))}
       </div>
     </div>

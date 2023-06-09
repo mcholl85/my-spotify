@@ -1,12 +1,7 @@
+import { Album } from './album'
+
 export type Track = {
-  album: {
-    images: {
-      url: string
-      height: number
-      width: number
-    }[]
-    name: string
-  }
+  album: Album
   artists: {
     id: string
     name: string
