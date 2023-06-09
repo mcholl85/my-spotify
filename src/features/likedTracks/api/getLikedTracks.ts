@@ -1,5 +1,5 @@
 import api from '../../../lib/axios'
-import { Track } from '../types'
+import { Track } from '../types/track'
 import { useQuery } from '@tanstack/react-query'
 import { QUERY_LIKED_TRACKS } from '../../../constants/query.constants'
 import { DEFAULT_LIMIT, DEFAULT_OFFSET } from '../../../constants/api.constants'
@@ -11,7 +11,7 @@ type GetLikedTracksParams = {
 
 type useLikedTracksProps = GetLikedTracksParams
 
-type GetLikedTraksResponse = {
+type GetLikedTracksResponse = {
   href: string
   limit: number
   next: string
@@ -24,10 +24,10 @@ type GetLikedTraksResponse = {
   }[]
 }
 
-export const getLikedTracks = async ({
+const getLikedTracks = async ({
   limit = DEFAULT_LIMIT,
   offset = DEFAULT_OFFSET,
-}: GetLikedTracksParams): Promise<GetLikedTraksResponse> => {
+}: GetLikedTracksParams): Promise<GetLikedTracksResponse> => {
   return await (
     await api.get(`/me/tracks?limit=${limit}&offset=${offset}`)
   ).data
