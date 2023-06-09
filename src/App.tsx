@@ -1,10 +1,10 @@
-import { useDeleteLikedTrack } from './features/likedTracks/api/deleteLikedTrack'
 import { useLikedTracks } from './features/likedTracks/api/getLikedTracks'
+import { DeleteTrack } from './features/likedTracks/components/DeleteTrack'
 import { getCoverUrl, COVER_SIZE } from './utils/getCoverUrl'
 
 function App() {
   const { data, isLoading, isError } = useLikedTracks({})
-  const { mutate: removeLikedTrack } = useDeleteLikedTrack()
+
   const nbOfTracks = data?.items.length
 
   if (isLoading) return <div>Chargement en cours</div>
@@ -19,7 +19,7 @@ function App() {
           <div key={track.id}>
             <div>{track.name} </div>
             <img src={getCoverUrl(track.album, COVER_SIZE.small)} alt={`${track.name} cover`} />
-            <button onClick={() => removeLikedTrack(track.id)}>Enlever de Titres likés</button>
+            <DeleteTrack id={track.id} />
           </div>
         ))}
       </div>
