@@ -1,28 +1,59 @@
+import Table, { ColumnsType } from 'antd/es/table'
 import { useLikedTracks } from './features/likedTracks/api/getLikedTracks'
 import { DeleteTrack } from './features/likedTracks/components/DeleteTrack'
 import { getCoverUrl, COVER_SIZE } from './utils/getCoverUrl'
+import { Result, Spin } from 'antd'
 
 function App() {
   const { data, isLoading, isError } = useLikedTracks({})
 
   const nbOfTracks = data?.items.length
 
-  if (isLoading) return <div>Chargement en cours</div>
-  if (isError) return <div>Error...</div>
+  if (isLoading)
+    return (
+      <Spin tip='Chargement en cours'>
+        <div className='content'></div>
+      </Spin>
+    )
+  if (isError) return <Result status='403' title='403' subTitle="Le token d'accès a expirée" />
+
+  const tracks: DataType[] = data.items.map((item, key) => ({
+    key,
+    name: item.track.name,
+    cover: getCoverUrl(item.track.album, COVER_SIZE.small),
+    id: item.track.id,
+  }))
+
+  type DataType = {
+    key: number
+    name: string
+    cover: string
+    id: string
+  }
+
+  const columns: ColumnsType<DataType> = [
+    {
+      title: 'Album',
+      dataIndex: 'album',
+      key: 'album',
+      render: (_, record) => <img src={record.cover} alt={`${record.name} cover`} />,
+    },
+    {
+      title: 'Titre',
+      dataIndex: 'name',
+      key: 'name',
+    },
+    {
+      title: 'Action',
+      key: 'action',
+      render: (_, record) => <DeleteTrack id={record.id} />,
+    },
+  ]
 
   return (
     <div>
-      <div>Les {nbOfTracks} musiques Spotify ont été chargées</div>
-      <br />
-      <div>
-        {data.items.map(({ track }) => (
-          <div key={track.id}>
-            <div>{track.name} </div>
-            <img src={getCoverUrl(track.album, COVER_SIZE.small)} alt={`${track.name} cover`} />
-            <DeleteTrack id={track.id} />
-          </div>
-        ))}
-      </div>
+      <Result status='success' title={`Les ${nbOfTracks} musiques Spotify ont été chargées`} />
+      <Table columns={columns} dataSource={tracks} />
     </div>
   )
 }

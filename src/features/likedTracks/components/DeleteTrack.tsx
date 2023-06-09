@@ -1,3 +1,4 @@
+import { Button } from 'antd'
 import { useDeleteLikedTrack } from '../api/deleteLikedTrack'
 import { AddTrack } from './AddTrack'
 
@@ -6,9 +7,13 @@ type DeleteTrackProps = {
 }
 
 export const DeleteTrack = ({ id }: DeleteTrackProps) => {
-  const { mutate: removeLikedTrack, isSuccess } = useDeleteLikedTrack()
+  const { mutate: removeLikedTrack, isSuccess, isLoading } = useDeleteLikedTrack()
 
   if (isSuccess) return <AddTrack id={id} />
 
-  return <button onClick={() => removeLikedTrack(id)}>Enlever de Titres likés</button>
+  return (
+    <Button type='default' loading={isLoading} onClick={() => removeLikedTrack(id)}>
+      Enlever de Titres likés
+    </Button>
+  )
 }

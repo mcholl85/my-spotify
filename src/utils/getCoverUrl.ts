@@ -7,4 +7,4 @@ export const COVER_SIZE = {
 }
 
 export const getCoverUrl = (album: Album, size: number) =>
-  album.images.find((image) => image.height === size)?.url
+  album.images.find((image) => image.height === size)?.url || ''
