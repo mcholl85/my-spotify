@@ -1,13 +1,20 @@
 import Table, { ColumnsType } from 'antd/es/table'
-import { Result, Space, Spin } from 'antd'
+import { Pagination, Result, Space, Spin } from 'antd'
 import { useLikedTracks } from '../api/getLikedTracks'
 import { ActionTrack } from './ActionTrack'
 import { setTrackList } from '../utils/setTrackList'
 import { Column } from '../types/colum'
+import { useState } from 'react'
+import { DEFAULT_LIMIT } from '../../../constants/api.constants'
+import { calcOffset } from '../utils/calcOffset'
 
 export const LikedTracksList = () => {
-  const { data, isLoading, isError } = useLikedTracks({})
-  const nbOfTracks = data?.items.length
+  const [page, setPage] = useState(1)
+
+  const { data, isLoading, isError } = useLikedTracks({
+    offset: calcOffset(page),
+  })
+
   const columns: ColumnsType<Column> = [
     {
       title: 'Album',
@@ -38,7 +45,14 @@ export const LikedTracksList = () => {
 
   return (
     <Space direction='vertical' className='container'>
-      <Result status='success' title={`Les ${nbOfTracks} musiques Spotify ont été chargées`} />
+      <Result status='success' title={`Les ${data.total} musiques Spotify ont été chargées`} />
+      <Pagination
+        current={page}
+        showSizeChanger={false}
+        defaultPageSize={DEFAULT_LIMIT}
+        total={data.total}
+        onChange={setPage}
+      />
       <Table columns={columns} dataSource={setTrackList(data)} pagination={false} />
     </Space>
   )

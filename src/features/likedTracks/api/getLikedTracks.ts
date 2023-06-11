@@ -5,8 +5,8 @@ import { QUERY_LIKED_TRACKS } from '../../../constants/query.constants'
 import { DEFAULT_LIMIT, DEFAULT_OFFSET } from '../../../constants/api.constants'
 
 type GetLikedTracksParams = {
-  limit?: string
-  offset?: string
+  limit?: number
+  offset?: number
 }
 
 type useLikedTracksProps = GetLikedTracksParams
@@ -35,7 +35,7 @@ const getLikedTracks = async ({
 
 export const useLikedTracks = ({ limit, offset }: useLikedTracksProps) => {
   return useQuery({
-    queryKey: [QUERY_LIKED_TRACKS],
+    queryKey: [QUERY_LIKED_TRACKS, limit, offset],
     queryFn: () => getLikedTracks({ limit, offset }),
     retry: 0,
     refetchOnWindowFocus: false,
