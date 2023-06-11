@@ -1,5 +1,5 @@
 import { GetLikedTracksResponse } from '../api/getLikedTracks'
-import { Column } from '../types/colum'
+import { Column } from '../types/column'
 import { COVER_SIZE, getCoverUrl } from './getCoverUrl'
 
 export const setTrackList = (tracks: GetLikedTracksResponse): Column[] =>
@@ -8,4 +8,5 @@ export const setTrackList = (tracks: GetLikedTracksResponse): Column[] =>
     name: item.track.name,
     cover: getCoverUrl(item.track.album, COVER_SIZE.small),
     id: item.track.id,
+    liked: true,
   }))

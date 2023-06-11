@@ -1,20 +1,19 @@
 import Table, { ColumnsType } from 'antd/es/table'
 import { Pagination, Result, Space, Spin } from 'antd'
 import { useLikedTracks } from '../api/getLikedTracks'
-import { ActionTrack } from './ActionTrack'
-import { setTrackList } from '../utils/setTrackList'
-import { Column } from '../types/colum'
+import { Column } from '../types/column'
 import { useState } from 'react'
 import { DEFAULT_LIMIT } from '../../../constants/api.constants'
 import { calcOffset } from '../utils/calcOffset'
+import { DeleteTrack } from './DeleteTrack'
+import { AddTrack } from './AddTrack'
 
 export const LikedTracksList = () => {
   const [page, setPage] = useState(1)
-
+  const offset = calcOffset(page)
   const { data, isLoading, isError } = useLikedTracks({
-    offset: calcOffset(page),
+    offset,
   })
-
   const columns: ColumnsType<Column> = [
     {
       title: 'Album',
@@ -29,8 +28,14 @@ export const LikedTracksList = () => {
     },
     {
       title: 'Action',
-      key: 'action',
-      render: (_, record) => <ActionTrack id={record.id} />,
+      dataIndex: 'liked',
+      key: 'liked',
+      render: (_, record) =>
+        record.liked ? (
+          <DeleteTrack id={record.id} offset={offset} />
+        ) : (
+          <AddTrack id={record.id} offset={offset} />
+        ),
     },
   ]
 
@@ -53,7 +58,7 @@ export const LikedTracksList = () => {
         total={data.total}
         onChange={setPage}
       />
-      <Table columns={columns} dataSource={setTrackList(data)} pagination={false} />
+      <Table columns={columns} dataSource={data.tracks} pagination={false} />
     </Space>
   )
 }

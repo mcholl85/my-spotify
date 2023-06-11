@@ -3,4 +3,5 @@ export type Column = {
   name: string
   cover: string
   id: string
+  liked: boolean
 }

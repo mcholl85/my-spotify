@@ -3,6 +3,7 @@ import { Track } from '../types/track'
 import { useQuery } from '@tanstack/react-query'
 import { QUERY_LIKED_TRACKS } from '../../../constants/query.constants'
 import { DEFAULT_LIMIT, DEFAULT_OFFSET } from '../../../constants/api.constants'
+import { setTrackList } from '../utils/setTrackList'
 
 type GetLikedTracksParams = {
   limit?: number
@@ -35,8 +36,11 @@ const getLikedTracks = async ({
 
 export const useLikedTracks = ({ limit, offset }: useLikedTracksProps) => {
   return useQuery({
-    queryKey: [QUERY_LIKED_TRACKS, limit, offset],
-    queryFn: () => getLikedTracks({ limit, offset }),
+    queryKey: [QUERY_LIKED_TRACKS, offset],
+    queryFn: async () => {
+      const data = await getLikedTracks({ limit, offset })
+      return { total: data.total, tracks: setTrackList(data) }
+    },
     retry: 0,
     refetchOnWindowFocus: false,
   })
