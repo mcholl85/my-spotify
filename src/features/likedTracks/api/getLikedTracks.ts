@@ -38,5 +38,6 @@ export const useLikedTracks = ({ limit, offset }: useLikedTracksProps) => {
     queryKey: [QUERY_LIKED_TRACKS],
     queryFn: () => getLikedTracks({ limit, offset }),
     retry: 0,
+    refetchOnWindowFocus: false,
   })
 }

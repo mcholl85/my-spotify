@@ -1,19 +1,26 @@
 import Table, { ColumnsType } from 'antd/es/table'
 import { useLikedTracks } from './features/likedTracks/api/getLikedTracks'
-import { DeleteTrack } from './features/likedTracks/components/DeleteTrack'
 import { getCoverUrl, COVER_SIZE } from './utils/getCoverUrl'
-import { Result, Spin } from 'antd'
+import { Result, Space, Spin } from 'antd'
+import { ActionTrack } from './features/likedTracks/components/ActionTrack'
+
+type DataType = {
+  key: number
+  name: string
+  cover: string
+  id: string
+}
 
 function App() {
   const { data, isLoading, isError } = useLikedTracks({})
-
   const nbOfTracks = data?.items.length
 
   if (isLoading)
     return (
-      <Spin tip='Chargement en cours'>
-        <div className='content'></div>
-      </Spin>
+      <Space size='large' className='container'>
+        <Spin size='large' />
+        <Space>Chargement en cours</Space>
+      </Space>
     )
   if (isError) return <Result status='403' title='403' subTitle="Le token d'accès a expirée" />
 
@@ -23,13 +30,6 @@ function App() {
     cover: getCoverUrl(item.track.album, COVER_SIZE.small),
     id: item.track.id,
   }))
-
-  type DataType = {
-    key: number
-    name: string
-    cover: string
-    id: string
-  }
 
   const columns: ColumnsType<DataType> = [
     {
@@ -46,15 +46,15 @@ function App() {
     {
       title: 'Action',
       key: 'action',
-      render: (_, record) => <DeleteTrack id={record.id} />,
+      render: (_, record) => <ActionTrack id={record.id} />,
     },
   ]
 
   return (
-    <div>
+    <Space direction='vertical' className='container'>
       <Result status='success' title={`Les ${nbOfTracks} musiques Spotify ont été chargées`} />
-      <Table columns={columns} dataSource={tracks} />
-    </div>
+      <Table columns={columns} dataSource={tracks} pagination={false} />
+    </Space>
   )
 }
 

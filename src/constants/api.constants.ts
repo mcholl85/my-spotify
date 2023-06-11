@@ -1,5 +1,5 @@
 export const BASE_API = 'https://api.spotify.com/v1'
 export const TOKEN =
-  'BQCr-mIkctszWlnUm5GjPLMxUv6jjy4hjcRoBG9OeDu20A5l-zc8aEw3XpUl9p-CaPWTqjvGu5GJuz8WfKt2bPix-DUDpc1fVqtG6oZdnw1lzcN7jMTRaJpvMRop7FFCGOkGZaAkMZayAhl0-ydEg62W_JjlpAqR5FVsGlDm0bmqtrXw0oUY7QuNIGb7pi8TAJc_4ffY2-rW2r-hQ1lclPja_KqzRw'
+  'BQAHghs-UWlCRJNf2xSUaQkbpY5fNSkjYLU9qtxYWisKC5CAmuGBUd0mR-B1XQrZgpdAIVujCEPlAxCpGIRClZQ5_VAGyPMBGGnftUtO_ORT5kKPG31XulcDgsq7b1cd1Jwo62sMb6U7OSOYxcx8p7xPw9fN7geJTXilhfy2i4yMcJ3T2Pgdq6U4dE7JDxipAgB-hqbOE4SRovBFC577CATLYmw'
 export const DEFAULT_OFFSET = '0'
-export const DEFAULT_LIMIT = '20'
+export const DEFAULT_LIMIT = '50'
