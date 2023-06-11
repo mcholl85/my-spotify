@@ -11,7 +11,7 @@ type GetLikedTracksParams = {
 
 type useLikedTracksProps = GetLikedTracksParams
 
-type GetLikedTracksResponse = {
+export type GetLikedTracksResponse = {
   href: string
   limit: number
   next: string

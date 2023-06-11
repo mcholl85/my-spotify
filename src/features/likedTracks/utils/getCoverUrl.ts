@@ -1,4 +1,4 @@
-import { Album } from '../features/likedTracks/types/album'
+import { Album } from '../types/album'
 
 export const COVER_SIZE = {
   small: 64,
