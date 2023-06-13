@@ -1,4 +1,4 @@
-# Pokemon : React TypeScript Example
+# My-Spotify : React TypeScript Example
 
 ## Application
 
