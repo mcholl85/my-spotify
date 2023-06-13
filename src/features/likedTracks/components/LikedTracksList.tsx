@@ -1,5 +1,5 @@
-import Table, { ColumnsType } from 'antd/es/table'
-import { Pagination, Result, Space, Spin } from 'antd'
+import { ColumnsType } from 'antd/es/table'
+import { Pagination, Result, Space, Spin, Table } from 'antd'
 import { useLikedTracks } from '../api/getLikedTracks'
 import { Column } from '../types/column'
 import { useState } from 'react'
