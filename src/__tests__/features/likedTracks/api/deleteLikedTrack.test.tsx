@@ -1,10 +1,10 @@
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { renderHook, waitFor } from '@testing-library/react'
 import { PropsWithChildren } from 'react'
-import api from '../../../lib/axios'
 import { act } from 'react-test-renderer'
-import * as changeLikeStatusModule from '../../../features/likedTracks/utils/changeLikeStatus'
-import { useDeleteLikedTrack } from '../../../features/likedTracks/api/deleteLikedTrack'
+import * as changeLikeStatusModule from '../../../../features/likedTracks/utils/changeLikeStatus'
+import { useDeleteLikedTrack } from '../../../../features/likedTracks/api/deleteLikedTrack'
+import api from '../../../../lib/axios'
 
 const queryClient = new QueryClient()
 const wrapper = ({ children }: PropsWithChildren) => (

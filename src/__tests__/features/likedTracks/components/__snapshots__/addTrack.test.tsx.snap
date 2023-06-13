@@ -1,0 +1,14 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Component AddTrack Matches DOM Snapshot 1`] = `
+<DocumentFragment>
+  <button
+    class="ant-btn css-dev-only-do-not-override-12jzuas ant-btn-primary"
+    type="button"
+  >
+    <span>
+      Ajouter aux Titres likés
+    </span>
+  </button>
+</DocumentFragment>
+`;

@@ -1,9 +1,9 @@
 /* eslint-disable camelcase */
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
-import api from '../../../lib/axios'
+import api from '../../../../lib/axios'
 import { PropsWithChildren } from 'react'
 import { renderHook, waitFor } from '@testing-library/react'
-import { useLikedTracks } from '../../../features/likedTracks/api/getLikedTracks'
+import { useLikedTracks } from '../../../../features/likedTracks/api/getLikedTracks'
 
 const mockedResponse = {
   href: 'https://api.spotify.com/v1/me/tracks?offset=0&limit=50',
