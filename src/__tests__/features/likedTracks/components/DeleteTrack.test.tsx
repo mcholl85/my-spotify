@@ -1,14 +1,8 @@
 import { render, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
-import { PropsWithChildren } from 'react'
 import { DeleteTrack } from '../../../../features/likedTracks/components/DeleteTrack'
 import { useDeleteLikedTrack } from '../../../../features/likedTracks/api/deleteLikedTrack'
 
-const queryClient = new QueryClient()
-const wrapper = ({ children }: PropsWithChildren) => (
-  <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
-)
 jest.mock('../../../../features/likedTracks/api/deleteLikedTrack', () => ({
   useDeleteLikedTrack: jest.fn(),
 }))
@@ -20,7 +14,7 @@ describe('Component DeleteTrack', () => {
   })
   test('Matches DOM Snapshot', () => {
     mockUseDeleteLikedTrack.mockReturnValue({ mutate: jest.fn() })
-    const { asFragment } = render(<DeleteTrack id={'123'} offset={50} />, { wrapper })
+    const { asFragment } = render(<DeleteTrack id={'123'} offset={50} />)
 
     expect(asFragment()).toMatchSnapshot()
   })
@@ -31,7 +25,7 @@ describe('Component DeleteTrack', () => {
       isLoading: false,
     })
 
-    render(<DeleteTrack id={'123'} offset={0} />, { wrapper })
+    render(<DeleteTrack id={'123'} offset={0} />)
 
     await userEvent.click(screen.getByRole('button'))
 
@@ -44,7 +38,7 @@ describe('Component DeleteTrack', () => {
       isLoading: true,
     })
 
-    render(<DeleteTrack id='123' offset={0} />, { wrapper })
+    render(<DeleteTrack id='123' offset={0} />)
 
     expect(screen.getByRole('button')).toHaveClass('ant-btn-loading')
   })
@@ -54,7 +48,7 @@ describe('Component DeleteTrack', () => {
       isLoading: false,
     })
 
-    render(<DeleteTrack id='123' offset={0} />, { wrapper })
+    render(<DeleteTrack id='123' offset={0} />)
 
     expect(screen.getByRole('button')).not.toHaveClass('ant-btn-loading')
   })
